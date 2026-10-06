@@ -6,9 +6,16 @@
     "apps/*",
     "packages/*"
   ],
-  "scripts": {
-    "server:dev": "npm run start:dev --workspace=apps/server",
-    "web:dev": "npm run dev --workspace=apps/web",
-    "mobile:start": "npm run start --workspace=apps/mobile"
+"scripts": {
+  "dev": "concurrently -n \"SERVER,WEB\" -c \"blue,green\" \"npm run server:dev\" \"npm run web:dev\"",
+  "dev:all": "concurrently -n \"SERVER,WEB,MOBILE\" -c \"blue,green,magenta\" \"npm run server:dev\" \"npm run web:dev\" \"npm run mobile:start\"",
+  "server:dev": "npm run start:dev --workspace=apps/server",
+  "web:dev": "npm run dev --workspace=apps/web",
+  "mobile:start": "npm run start --workspace=apps/mobile",
+  "db:up": "docker compose up -d",
+  "db:studio": "npx prisma studio --schema=apps/server/prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
   }
 }
