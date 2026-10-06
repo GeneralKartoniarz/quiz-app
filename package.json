@@ -1,0 +1,14 @@
+{
+  "name": "quiz-app",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "server:dev": "npm run start:dev --workspace=apps/server",
+    "web:dev": "npm run dev --workspace=apps/web",
+    "mobile:start": "npm run start --workspace=apps/mobile"
+  }
+}
