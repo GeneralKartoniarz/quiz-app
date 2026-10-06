@@ -28,3 +28,10 @@ yarn-error.log*
 # OS files
 .DS_Store
 Thumbs.db
+
+# Build cache & generated files
+*.tsbuildinfo
+.agents/
+.claude/
+.cursor/
+.devin/
