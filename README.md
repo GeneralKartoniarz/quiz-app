@@ -7,14 +7,14 @@
 
 ## First setup:
   - In terminal type:
-      git clone https://github.com/GeneralKartoniarz/quiz-app.git
-      cd quiz-app
-      npm install
+      - git clone https://github.com/GeneralKartoniarz/quiz-app.git
+      - cd quiz-app
+      - npm install
   - Make .env file in apps/server/ (or u can copy .env.example, rename it and change JWT password)
   - Launch Docker Desktop
   - In terminal type:
-      npm run db:up
-      npx prisma migrate dev --schema=apps/server/prisma/schema.prisma
+      - npm run db:up
+      - npx prisma migrate dev --schema=apps/server/prisma/schema.prisma
 ## Every other setup/launching:
   - Make sure Docker app is launched
   - In terminal type:
