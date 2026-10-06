@@ -14,7 +14,7 @@
   - Launch Docker Desktop
   - In terminal type:
       - npm run db:up
-      - npx prisma migrate dev --schema=apps/server/prisma/schema.prisma
+      - npx prisma migrate dev --schema=apps/server/prisma/schema.prisma (or if u use linux: npx -w apps/server prisma migrate dev)
 ## Every other setup/launching:
   - Make sure Docker app is launched
   - In terminal type:
