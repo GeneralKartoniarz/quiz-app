@@ -7,11 +7,108 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
+enum ArenaStatus {
+  LOBBY
+  IN_PROGRESS
+  FINISHED
+}
+
 model User {
-  id           String      @id @default(uuid())
-  email        String      @unique
-  username     String      @unique
-  passwordHash String
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  id           String         @id @default(uuid())
+  email        String         @unique
+  username     String         @unique
+  passwordHash String         //no hasowanie
+  role         Role           @default(USER) //potem pod administrowanie talią publiczną
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  decks        Deck[]         //decki gracza
+  arenaHosted  ArenaSession[] @relation("HostSessions") 
+  scores       ArenaScore[]   //Potem pod areny TODO
+  sentFriendRequests     Friendship[]   @relation("SentFriendRequests")
+  receivedFriendRequests Friendship[]   @relation("ReceivedFriendRequests")
+}
+enum FriendshipEnum {
+  PENDING
+  ACCEPTED
+  REJECTED
+  BLOCKED
+}
+
+model Friendship {
+  id         String           @id @default(uuid())
+  status     FriendshipEnum   @default(PENDING)
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  senderId   String
+  sender     User             @relation("SentFriendRequests", fields: [senderId], references: [id], onDelete: Cascade)
+
+  receiverId String
+  receiver   User             @relation("ReceivedFriendRequests", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, receiverId])
+  @@index([senderId])
+  @@index([receiverId])
+}
+
+model Deck {
+  id            String         @id @default(uuid())
+  title         String
+  description   String?
+  isPublic      Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  authorId      String
+  author        User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  flashcards    Flashcard[]
+  arenaSessions ArenaSession[]
+}
+
+model Flashcard {
+  id        String   @id @default(uuid())
+  frontText String
+  backText  String
+  hint      String?  //opcjonalnie
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  deckId    String
+  deck      Deck     @relation(fields: [deckId], references: [id], onDelete: Cascade)
+}
+
+model ArenaSession {
+  id        String       @id @default(uuid())
+  pinCode   String       @unique
+  status    ArenaStatus  @default(LOBBY)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  hostId    String
+  host      User         @relation("HostSessions", fields: [hostId], references: [id], onDelete: Cascade)
+
+  deckId    String
+  deck      Deck         @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
+  scores    ArenaScore[]
+}
+
+model ArenaScore {
+  id        String       @id @default(uuid())
+  nickname  String
+  score     Int          @default(0)
+  createdAt DateTime     @default(now())
+
+  userId    String?
+  user      User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  sessionId String
+  session   ArenaSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 }
