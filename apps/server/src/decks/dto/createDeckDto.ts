@@ -23,10 +23,6 @@ export class CreateDeckDto implements CreateDeckPayload {
   @IsOptional()
   isPublic?: boolean;
 
-  @IsString()
-  @IsNotEmpty()
-  authorId: string;
-
   @IsArray()
   @IsOptional()
   @ValidateNested({ each: true })

@@ -28,7 +28,6 @@ export interface CreateDeckPayload {
   title: string;
   description?: string;
   isPublic?: boolean;
-  authorId: string;
   flashcards?: CreateFlashcardPayload[];
 }
 
