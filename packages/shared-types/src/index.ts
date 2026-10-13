@@ -1,13 +1,4 @@
-export interface UserProfile {
-  id: string;
-  username: string;
-  email: string;
-}
-
-export interface QuizQuestion {
-  id: string;
-  questionText: string;
-  options: string[];
-  correctOptionIndex: number;
-  timeLimitSeconds: number;
-}
+export * from './auth.types';
+export * from './arena.types';
+export * from './flashcard.types';
+export * from './deck.types';
