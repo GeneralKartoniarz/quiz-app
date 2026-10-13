@@ -30,7 +30,7 @@
     "@nestjs/platform-socket.io": "^12.1.2",
     "@nestjs/websockets": "^12.1.2",
     "@prisma/client": "^6.19.3",
-    "@quiz-app/types": "*",
+    "@quiz-app/shared-types": "*",
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
