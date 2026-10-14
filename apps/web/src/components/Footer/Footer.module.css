@@ -1,0 +1,36 @@
+/* src/components/Footer/Footer.module.css */
+.footer {
+  background-color: var(--bg-footer);
+  padding: 3rem 4rem;
+  margin-top: 4rem;
+  border-top: 1px solid var(--border-color);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.col h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+}
+
+.col a {
+  display: block;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.col a:hover {
+  color: var(--color-primary);
+}
