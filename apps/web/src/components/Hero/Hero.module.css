@@ -1,0 +1,126 @@
+/* src/components/Hero/Hero.module.css */
+.heroContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.leftContent {
+  flex: 1;
+  padding-right: 3rem;
+}
+
+.accentLine {
+  width: 40px;
+  height: 4px;
+  background-color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 2.75rem;
+  font-weight: 500;
+  line-height: 1.15;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.divider {
+  width: 1px;
+  height: 140px;
+  background-color: var(--border-color);
+  margin: 0 3rem;
+  transition: background-color 0.25s ease;
+}
+
+.pinSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 320px;
+}
+
+.pinLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted);
+}
+
+.pinInputs {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.pinBox {
+  width: 45px;
+  height: 50px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+  background: var(--bg-input);
+  color: var(--color-text);
+  border-radius: 4px;
+  outline: none;
+  transform: scale(1);
+  transition: transform 0.3s, border-color 0.2s, background-color 0.25s ease, color 0.25s ease;
+}
+
+.pinBox::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.5;
+}
+
+.pinBox:focus {
+  transform: scale(1.05);
+  border: 1px solid var(--border-focus);
+}
+
+.arenaBtn {
+  margin-top: 0.5rem;
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+  border: none;
+  padding: 0.85rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 4px;
+  transition: box-shadow 0.3s, filter 0.2s, background-color 0.25s ease;
+  backface-visibility: hidden;
+
+  animation-name: highlight;
+  animation-duration: 1s;
+  animation-delay: 0.3s;
+  animation-timing-function: ease;
+}
+
+.arenaBtn:hover {
+  box-shadow: 0px 0px 20px var(--color-primary);
+  filter: brightness(1.05);
+}
+
+@keyframes highlight {
+  0% {
+  }
+  25% {
+    transform: rotate(-5deg) scale(1.05);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}

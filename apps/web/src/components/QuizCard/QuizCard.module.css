@@ -1,0 +1,46 @@
+/* src/components/QuizCard/QuizCard.module.css */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.25s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.thumbnail {
+  aspect-ratio: 16 / 9;
+  background-color: var(--bg-card-thumb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg-card-thumb-text);
+  font-size: 0.85rem;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.content {
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--color-text);
+}
+
+.meta, .tags, .author {
+  margin: 0.25rem 0;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
