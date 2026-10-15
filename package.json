@@ -13,13 +13,17 @@
     "web:dev": "npm run dev --workspace=apps/web",
     "mobile:start": "npm run start --workspace=apps/mobile",
     "db:up": "docker compose up -d",
-    "db:studio": "npx prisma studio --schema=apps/server/prisma/schema.prisma"
+    "db:generate": "npm --workspace=apps/server exec prisma generate",
+    "db:studio": "npm --workspace=apps/server exec prisma studio"
   },
   "devDependencies": {
     "concurrently": "^10.0.5",
-    "prisma": "^8.0.0-rc.22"
+    "prisma": "^6.19.3"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.3.1",
+    "@fortawesome/free-solid-svg-icons": "^7.3.1",
+    "@fortawesome/react-fontawesome": "^3.5.0",
     "animate.css": "^4.1.1"
   }
 }
