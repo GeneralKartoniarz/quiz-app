@@ -1,5 +1,5 @@
 .container{
-    border: solid 1px rgba(59, 0, 82, 0.699);
+    border: none;
     padding: 30px;
     width: 49%;
     background: #2a309b;
@@ -7,6 +7,11 @@
     border-radius: 6px;
     background-size: 200% 200%;
     animation: gradient 5s ease infinite;
+    transition: transform 0.2s;
+    color: white;
+}
+.container:hover{
+    transform: scale(1.02);
 }
 .content{
     display: flex;
