@@ -18,10 +18,10 @@
 ## Every other setup/launching:
   - Make sure Docker app is launched
   - In terminal type:
-      npm install
-      npx -w apps/server prisma migrate dev
-      npx -w apps/server prisma generate
-      npm run dev
+     - npm install
+     - npx -w apps/server prisma migrate dev
+     - npx -w apps/server prisma generate
+     - npm run dev
   - This should launch server and website, for mobile view type:
       npm run mobile:start 
 ## Ports:
