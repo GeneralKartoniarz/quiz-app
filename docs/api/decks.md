@@ -16,7 +16,7 @@ import {
    ```http
   Authorization: Bearer <accessToken>
   ```
-| Metoda | Endpoint | Wymaga Auth | Opis | Zwracany status |
+Metoda | Endpoint | Wymaga Auth | Opis | Zwracany status |
 | :--- | :--- | :---: | :--- | :--- |
 | `GET` | `/decks` | Nie | Pobiera katalog wszystkich publicznych talii | `200 OK` |
 | `GET` | `/decks/my` | **Tak** | Pobiera wyłącznie talie zalogowanego użytkownika | `200 OK` / `401 Unauthorized` |
