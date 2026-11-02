@@ -3,7 +3,8 @@
 - **CORS:** Włączony dla `http://localhost:5173` (Vite) oraz `http://localhost:8081` (Expo)
 - **Format danych:** `application/json`
 - **Współdzielone typy:** Paczka `@quiz-app/shared-types`
-- **Import**:
+- **Import:**
+
 ```typescript
 import {
   CreateDeckPayload,
@@ -13,9 +14,9 @@ import {
 } from '@quiz-app/shared-types';
 ```
  - **Autoryzacja**: HTTP dla chronionych tras: 
-   ```http
-  Authorization: Bearer <accessToken>
-  ```
+   ``` http
+    Authorization: Bearer <accessToken> 
+   ```
 | Metoda | Endpoint | Wymaga Auth | Opis | Zwracany status |
 | :--- | :--- | :---: | :--- | :--- |
 | `GET` | `/decks` | Nie | Pobiera katalog wszystkich publicznych talii | `200 OK` |
