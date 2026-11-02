@@ -1,0 +1,40 @@
+.wrapper{
+    background-color: var(--bg-card);
+    border: solid 1px var(--border-color);
+    padding: 1.2rem;
+    max-width: 1200px;
+    clear: both;
+}
+.inputsWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+     margin-bottom: 1rem;
+}
+.box{
+    flex: 1;
+    width: 10%;
+
+}
+
+.input {  
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg-input);
+  color: var(--color-text);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.25s ease;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+.input:focus {
+  border-color: var(--border-focus);
+}

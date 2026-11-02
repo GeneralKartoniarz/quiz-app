@@ -1,8 +1,8 @@
 .body{
     max-width: 1200px;
-    background-color: var(--bg-card-thumb);
+    background-color: var(--bg-color);
     height: 300px;
-    border: var(--border-color) solid 1px;
+    border: none;
     align-items: center;
     justify-content: space-between;
     display: flex;

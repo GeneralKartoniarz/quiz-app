@@ -1,10 +1,9 @@
 import { useState, useMemo } from "react";
-import { Navbar } from "../../components/Navbar/Navbar";
+import { useOutletContext } from "react-router-dom";
 import { Hero } from "../../components/Hero/Hero";
 import { QuizGrid, type QuizItem } from "../../components/QuizGrid/QuizGrid";
-import { Footer } from "../../components/Footer/Footer";
-import styles from "./HomePage.module.css";
-import { GameModes } from "../../components/GameModes/GameModes.tsx";
+import { GameModes } from "../../components/GameModes/GameModes";
+import type { LayoutContextType } from "../../components/Layout/Layout";
 
 // Przykładowe dane quizów do przetestowania widoku
 const INITIAL_QUIZZES: QuizItem[] = [
@@ -67,7 +66,9 @@ const INITIAL_QUIZZES: QuizItem[] = [
 ];
 
 export const HomePage = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const layoutContext = useOutletContext<LayoutContextType | undefined>();
+  const [localSearchQuery] = useState("");
+  const searchQuery = layoutContext?.searchQuery ?? localSearchQuery;
   const [sortBy, setSortBy] = useState("popular"); // 'popular' | 'title' | 'questions'
 
   // Filtrowanie i sortowanie listy quizów w zależności od stanu
@@ -92,25 +93,19 @@ export const HomePage = () => {
       return;
     }
     alert(`Dołączanie do areny z kodem: ${pin}`);
-    // Tutaj dodacie nawigację do pokoju gry, np.: navigate(`/arena/${pin}`)
+    // Tutaj nawigacja do pokoju gry, np.: navigate(`/arena/${pin}`)
   };
 
   return (
-    <div className={styles.pageWrapper}>
-      <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-
-      <main className={styles.mainContent}>
-        <Hero onJoinArena={handleJoinArena} />
-        <GameModes />
-        <QuizGrid
-          quizList={filteredQuizzes}
-          sortBy={sortBy}
-          setSortBy={setSortBy}
-        />
-      </main>
-
-      <Footer />
-    </div>
+    <>
+      <Hero onJoinArena={handleJoinArena} />
+      <GameModes />
+      <QuizGrid
+        quizList={filteredQuizzes}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+      />
+    </>
   );
 };
 

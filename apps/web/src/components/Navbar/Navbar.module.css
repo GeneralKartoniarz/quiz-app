@@ -9,6 +9,13 @@
   transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
+.logoLink {
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+}
+
 .logo {
   font-family: var(--font-serif);
   font-weight: 700;
@@ -63,24 +70,21 @@
 
 .navLink {
   text-decoration: none;
-  color: var(--color-text);
-  font-weight: 500;
-  font-size: 0.95rem;
-  padding: 0.4rem 0.6rem;
-  border-radius: 4px;
   color: var(--color-primary-contrast);
   font-weight: 550;
+  font-size: 0.95rem;
   background-color: var(--color-primary);
   padding: 0.7rem 1.4rem;
-  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease ;
+  border-radius: 4px;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
   position: relative;
   transform: scale(1);
 }
 
 .navLink:hover {
   color: var(--color-primary);
-  transform: scale(1.1);
-  background-color: var(--bg_card);
+  transform: scale(1.05);
+  background-color: var(--bg-card);
 }
 
 .actions {
@@ -129,6 +133,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
   transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
 }
 

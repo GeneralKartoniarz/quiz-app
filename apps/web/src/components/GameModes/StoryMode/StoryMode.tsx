@@ -1,11 +1,6 @@
 import styles from "./StoryMode.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEarthAmericas,
-  faEarthEurope,
-  faGlobe,
-  faRobot,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEarthAmericas } from "@fortawesome/free-solid-svg-icons";
 
 export const StoryMode = () => {
   return (

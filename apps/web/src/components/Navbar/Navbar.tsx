@@ -1,5 +1,6 @@
 import { useTheme } from "../../hooks/useTheme";
 import styles from "./Navbar.module.css";
+import { Link } from "react-router-dom";
 
 export interface NavbarProps {
   searchQuery?: string;
@@ -11,7 +12,9 @@ export const Navbar = ({ searchQuery, setSearchQuery }: NavbarProps) => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>QUIZZINGER</div>
+      <Link to="/" className={styles.logoLink}>
+        <div className={styles.logo}>QUIZZINGER</div>
+      </Link>
 
       <div className={styles.searchWrapper}>
         <span className={styles.searchIcon}>🔍</span>
@@ -25,22 +28,24 @@ export const Navbar = ({ searchQuery, setSearchQuery }: NavbarProps) => {
       </div>
 
       <nav className={styles.nav}>
-        <a href="#fiszki" className={styles.navLink}>
+        <Link to="/Deck/Create" className={styles.navLink}>
           Fiszki
-        </a>
-        <a href="#areny" className={styles.navLink}>
+        </Link>
+        <Link to="/areny" className={styles.navLink}>
           Areny
-        </a>
-        <a href="#stworz" className={styles.navLink}>
+        </Link>
+        <Link to="/stworz" className={styles.navLink}>
           Stwórz
-        </a>
+        </Link>
       </nav>
 
       <div className={styles.actions}>
         <button
           className={styles.themeToggleBtn}
           onClick={toggleTheme}
-          aria-label={theme === "dark" ? "Włącz tryb jasny" : "Włącz tryb ciemny"}
+          aria-label={
+            theme === "dark" ? "Włącz tryb jasny" : "Włącz tryb ciemny"
+          }
           title={theme === "dark" ? "Włącz tryb jasny" : "Włącz tryb ciemny"}
         >
           {theme === "dark" ? (
@@ -82,7 +87,9 @@ export const Navbar = ({ searchQuery, setSearchQuery }: NavbarProps) => {
           )}
         </button>
 
-        <button className={styles.profileBtn}>PROFIL</button>
+        <Link to="/profile" className={styles.profileBtn}>
+          PROFIL
+        </Link>
       </div>
     </header>
   );

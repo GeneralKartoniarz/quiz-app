@@ -1,0 +1,8 @@
+.pageWrapper{
+    display: flex;   
+    flex-direction: column;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 2rem auto 4rem auto;
+    padding: 0 1.5rem;
+}

@@ -19,7 +19,7 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Ciemny motyw dopasowany precyzyjnie do załączonej makiety graficznej */
+/* ciemny motyw */
 [data-theme='dark'] {
   --bg-main: #151413;
   --bg-card: #211f1d;

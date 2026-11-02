@@ -1,4 +1,4 @@
-import { CreateFlashcardPayload, FlashcardResponse } from './flashcard.types';
+import type { CreateFlashcardPayload, FlashcardResponse } from './flashcard.types';
 
 export interface DeckDetailsResponse {
   id: string;

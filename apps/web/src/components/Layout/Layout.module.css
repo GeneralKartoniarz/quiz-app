@@ -1,0 +1,12 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  transition: background-color 0.25s ease;
+}
+
+.mainContent {
+  flex: 1;
+}
+
