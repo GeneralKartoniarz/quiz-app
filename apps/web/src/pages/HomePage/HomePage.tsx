@@ -1,69 +1,12 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { useOutletContext } from "react-router-dom";
 import { Hero } from "../../components/Hero/Hero";
 import { QuizGrid, type QuizItem } from "../../components/QuizGrid/QuizGrid";
 import { GameModes } from "../../components/GameModes/GameModes";
 import type { LayoutContextType } from "../../components/Layout/Layout";
-
-// Przykładowe dane quizów do przetestowania widoku
-const INITIAL_QUIZZES: QuizItem[] = [
-  {
-    id: 1,
-    title: "Historia Starożytna Rzymu",
-    questionsCount: 15,
-    tags: ["Historia", "Rzym", "Antyk"],
-    author: "Jan Kowalski",
-  },
-  {
-    id: 2,
-    title: "Podstawy JavaScript & React",
-    questionsCount: 20,
-    tags: ["IT", "JavaScript", "React"],
-    author: "Aleksandra S.",
-  },
-  {
-    id: 3,
-    title: "Flagi Świata i Stolice",
-    questionsCount: 30,
-    tags: ["Geografia", "Świat"],
-    author: "Michał W.",
-  },
-  {
-    id: 4,
-    title: "Kultowe Filmy XXI Wieku",
-    questionsCount: 12,
-    tags: ["Film", "Popkultura"],
-    author: "Ania K.",
-  },
-  {
-    id: 5,
-    title: "Biologia: Komórka i DNA",
-    questionsCount: 18,
-    tags: ["Biologia", "Nauka"],
-    author: "Piotr R.",
-  },
-  {
-    id: 6,
-    title: "Matematyka – Logika i Zbiory",
-    questionsCount: 10,
-    tags: ["Matematyka", "Logika"],
-    author: "Tomasz B.",
-  },
-  {
-    id: 7,
-    title: "Architektura Komputerów & x86",
-    questionsCount: 25,
-    tags: ["IT", "Asembler", "Hardware"],
-    author: "Kamil M.",
-  },
-  {
-    id: 8,
-    title: "Klasyka Muzyki Rockowej",
-    questionsCount: 15,
-    tags: ["Muzyka", "Rock"],
-    author: "Marta D.",
-  },
-];
+import { getPublicDecks, getMyDecks } from "../../api/decks";
+import { getStoredToken } from "../../api/auth";
+import type { DeckListItemResponse } from "@quiz-app/shared-types";
 
 export const HomePage = () => {
   const layoutContext = useOutletContext<LayoutContextType | undefined>();
@@ -71,21 +14,85 @@ export const HomePage = () => {
   const searchQuery = layoutContext?.searchQuery ?? localSearchQuery;
   const [sortBy, setSortBy] = useState("popular"); // 'popular' | 'title' | 'questions'
 
-  // Filtrowanie i sortowanie listy quizów w zależności od stanu
-  const filteredQuizzes = useMemo(() => {
-    return INITIAL_QUIZZES.filter((quiz) => {
-      const query = searchQuery.toLowerCase();
-      return (
-        quiz.title.toLowerCase().includes(query) ||
-        quiz.tags.some((tag) => tag.toLowerCase().includes(query)) ||
-        quiz.author.toLowerCase().includes(query)
+  const [decks, setDecks] = useState<QuizItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchDecks = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Pobieramy publiczne zestawy fiszek z bazy danych
+      const publicDecks = await getPublicDecks();
+      let allDecks: DeckListItemResponse[] = [...publicDecks];
+
+      // Jeśli użytkownik jest zalogowany, pobieramy także jego prywatne zestawy
+      if (getStoredToken()) {
+        try {
+          const myDecks = await getMyDecks();
+          const existingIds = new Set(allDecks.map((d) => d.id));
+          for (const myDeck of myDecks) {
+            if (!existingIds.has(myDeck.id)) {
+              allDecks.push(myDeck);
+            }
+          }
+        } catch {
+          // Kontynuuj z zestawami publicznymi
+        }
+      }
+
+      // Mapowanie danych z bazy na format kafelka QuizItem
+      const mappedQuizzes: QuizItem[] = allDecks.map((deck) => {
+        const parsedTags = deck.description
+          ? deck.description
+              .split(",")
+              .map((t) => t.trim())
+              .filter(Boolean)
+          : [];
+
+        return {
+          id: deck.id,
+          title: deck.title,
+          questionsCount: deck._count?.flashcards ?? 0,
+          tags: parsedTags.length > 0 ? parsedTags : ["Fiszki"],
+          author: deck.author?.username ?? "Użytkownik",
+        };
+      });
+
+      setDecks(mappedQuizzes);
+    } catch (err: unknown) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Nie udało się pobrać zestawów fiszek z bazy danych.",
       );
-    }).sort((a, b) => {
-      if (sortBy === "title") return a.title.localeCompare(b.title);
-      if (sortBy === "questions") return b.questionsCount - a.questionsCount;
-      return a.id - b.id; // Domyślnie wg id / popularności
-    });
-  }, [searchQuery, sortBy]);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchDecks();
+  }, [fetchDecks]);
+
+  // Filtrowanie i sortowanie listy fiszek z bazy danych
+  const filteredQuizzes = useMemo(() => {
+    return decks
+      .filter((quiz) => {
+        const query = searchQuery.toLowerCase();
+        return (
+          quiz.title.toLowerCase().includes(query) ||
+          quiz.tags.some((tag) => tag.toLowerCase().includes(query)) ||
+          quiz.author.toLowerCase().includes(query)
+        );
+      })
+      .sort((a, b) => {
+        if (sortBy === "title") return a.title.localeCompare(b.title);
+        if (sortBy === "questions") return b.questionsCount - a.questionsCount;
+        return String(a.id).localeCompare(String(b.id)); // Domyślnie wg id / popularności
+      });
+  }, [decks, searchQuery, sortBy]);
 
   const handleJoinArena = (pin: string) => {
     if (pin.length < 6) {
@@ -93,18 +100,55 @@ export const HomePage = () => {
       return;
     }
     alert(`Dołączanie do areny z kodem: ${pin}`);
-    // Tutaj nawigacja do pokoju gry, np.: navigate(`/arena/${pin}`)
   };
 
   return (
     <>
       <Hero onJoinArena={handleJoinArena} />
       <GameModes />
-      <QuizGrid
-        quizList={filteredQuizzes}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-      />
+      {loading ? (
+        <div
+          style={{
+            textAlign: "center",
+            padding: "4rem 1rem",
+            color: "var(--color-text-muted)",
+          }}
+        >
+          <p>Wczytywanie zestawów fiszek z bazy danych...</p>
+        </div>
+      ) : error ? (
+        <div
+          style={{
+            textAlign: "center",
+            padding: "4rem 1rem",
+            color: "var(--color-text-muted)",
+          }}
+        >
+          <p>{error}</p>
+          <button
+            type="button"
+            onClick={fetchDecks}
+            style={{
+              marginTop: "0.75rem",
+              padding: "0.5rem 1.25rem",
+              background: "var(--color-primary)",
+              color: "var(--color-primary-contrast)",
+              border: "none",
+              borderRadius: "4px",
+              fontWeight: 600,
+              cursor: "pointer",
+            }}
+          >
+            Spróbuj ponownie
+          </button>
+        </div>
+      ) : (
+        <QuizGrid
+          quizList={filteredQuizzes}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
+      )}
     </>
   );
 };

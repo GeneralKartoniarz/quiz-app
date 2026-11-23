@@ -28,14 +28,20 @@ export const Navbar = ({ searchQuery, setSearchQuery }: NavbarProps) => {
       </div>
 
       <nav className={styles.nav}>
-        <Link to="/Deck/Create" className={styles.navLink}>
+        <Link to="/fiszki" className={styles.navLink}>
           Fiszki
+        </Link>
+        <Link to="/quizy" className={styles.navLink}>
+          Quizy
         </Link>
         <Link to="/areny" className={styles.navLink}>
           Areny
         </Link>
+        <Link to="/Deck/Create" className={styles.navLink}>
+          Stwórz fiszkę
+        </Link>
         <Link to="/stworz" className={styles.navLink}>
-          Stwórz
+          Stwórz quiz
         </Link>
       </nav>
 

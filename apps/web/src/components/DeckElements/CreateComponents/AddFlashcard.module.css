@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
-     margin-bottom: 1rem;
+     /* margin-bottom: 0.2rem; */
 }
 .box{
     flex: 1;
@@ -38,3 +38,96 @@
 .input:focus {
   border-color: var(--border-focus);
 }
+
+.submitBtn {
+  margin-top: 0.5rem;
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+  border: none;
+  padding: 0.85rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+  margin-top: 4.47rem;
+  margin-left: 3rem;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  margin-bottom: 1rem;
+  border: 1px solid var(--color-primary); 
+}
+
+.submitBtn:hover {
+  color:rgb(169, 3, 3);
+  background-color: var(--bg-card-thumb);
+  border: 1px solid rgb(169, 3, 3); 
+}
+
+input[type="checkbox"]{
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-text-muted);
+  background-color: var(--bg-card);
+
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+
+  position: relative;
+  vertical-align: middle;
+}
+/* Efekt po najechaniu myszką */
+input[type="checkbox"]:hover {
+  border-color: var(--border-focus);
+}
+
+/* Wygląd po zaznaczeniu (checked) */
+input[type="checkbox"]:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  animation: checkbox-check 0.3s ease;
+}
+
+/* Dodanie ptaszka (fajki) przy zaznaczeniu */
+input[type="checkbox"]:checked::before {
+  content: "";
+  width: 5px;
+  height: 9px;
+  border: solid var(--color-primary-contrast);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-bottom: 2px;
+}
+
+
+@keyframes checkbox-check {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.hintBox{
+  width: 80%;
+}
+
+
+

@@ -8,6 +8,7 @@
   flex-direction: column;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.25s ease;
   cursor: pointer;
+  height: 100%;
 }
 
 .card:hover {
@@ -25,11 +26,54 @@
   color: var(--bg-card-thumb-text);
   font-size: 0.85rem;
   transition: background-color 0.25s ease, color 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.thumbnailClickable {
+  cursor: pointer;
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumbnailOverlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.5rem;
+  text-align: center;
+  user-select: none;
+}
+
+.thumbnail:hover .thumbnailOverlay {
+  opacity: 1;
+}
+
+.overlayIcon {
+  font-size: 1.35rem;
 }
 
 .content {
   padding: 1.25rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .title {
@@ -43,4 +87,11 @@
   margin: 0.25rem 0;
   font-size: 0.8rem;
   color: var(--color-text-muted);
+}
+
+.Link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
 }

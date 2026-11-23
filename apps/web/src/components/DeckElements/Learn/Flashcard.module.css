@@ -1,0 +1,194 @@
+.perspectiveContainer {
+  perspective: 1200px;
+  max-width: 900px;
+  min-height: 400px;
+  margin: 0 auto;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  animation: cardEntrance 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes cardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px;
+}
+
+.cardInner.flipped {
+  transform: rotateY(180deg);
+}
+
+.cardFace {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  min-height: 400px;
+  padding: 2.2rem 2.5rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.05));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.perspectiveContainer:hover .cardFace {
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+}
+
+.perspectiveContainer:focus-visible .cardFace {
+  border-color: var(--border-focus);
+}
+
+.cardFront {
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+
+.cardBack {
+  transform: rotateY(180deg);
+  border-left: 4px solid var(--color-primary);
+  z-index: 1;
+}
+
+/* Zapobieganie zacinaniu/przebijaniu ukrytej strony podczas i po zakończeniu obrotu */
+.cardInner:not(.flipped) .cardBack {
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0s linear 0.21s;
+}
+
+.cardInner:not(.flipped) .cardFront {
+  pointer-events: auto;
+  visibility: visible;
+  transition: visibility 0s linear 0s;
+}
+
+.cardInner.flipped .cardFront {
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0s linear 0.21s;
+}
+
+.cardInner.flipped .cardBack {
+  pointer-events: auto;
+  visibility: visible;
+  transition: visibility 0s linear 0s;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.state {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--color-primary);
+  text-transform: uppercase;
+}
+
+.stateAnswer {
+  color: #22c55e;
+}
+
+.flipBadge {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0;
+}
+
+.content {
+  width: 100%;
+  font-size: 1.85rem;
+  line-height: 1.45;
+  color: var(--color-text);
+  font-weight: 600;
+  margin: 0;
+  word-break: break-word;
+}
+
+.hintContainer {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hintPlaceholder {
+  height: 24px;
+}
+
+.hintBtn {
+  background: transparent;
+  border: 1px dashed var(--border-color);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.hintBtn:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background-color: rgba(197, 139, 41, 0.08);
+}
+
+.hintText {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  background: var(--bg-card-thumb);
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.hintBadge {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  background: var(--bg-card-thumb);
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}

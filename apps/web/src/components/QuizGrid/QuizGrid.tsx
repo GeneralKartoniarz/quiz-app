@@ -1,8 +1,8 @@
-import { QuizCard, type QuizCardProps } from '../QuizCard/QuizCard';
-import styles from './QuizGrid.module.css';
+import { QuizCard, type QuizCardProps } from "../QuizCard/QuizCard";
+import styles from "./QuizGrid.module.css";
 
 export interface QuizItem extends QuizCardProps {
-  id: number;
+  id: string | number;
 }
 
 export interface QuizGridProps {
@@ -38,4 +38,3 @@ export const QuizGrid = ({ quizList }: QuizGridProps) => {
     </section>
   );
 };
-

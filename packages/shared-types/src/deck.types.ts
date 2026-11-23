@@ -22,6 +22,10 @@ export interface DeckListItemResponse {
   _count: {
     flashcards: number;
   };
+  author?: {
+    id: string;
+    username: string;
+  };
 }
 
 export interface CreateDeckPayload {
